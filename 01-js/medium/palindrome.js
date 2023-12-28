@@ -4,6 +4,18 @@
 */
 
 function isPalindrome(str) {
+  let str1 = "";
+  let specialChars = ["~", "!", "@", "$", "%", "&", "*", "(", ")", "_", "-", "=", "+", ",", "?", ":", " ", "."];
+  for (let i = 0; i < str.length; i++) {
+    if (!specialChars.includes(str[i])) {
+      str1 = str1 + str[i];
+    }
+  }
+  for (let i = 0; i < str1.length / 2; i++) {
+    if (str1[i].toLowerCase() != str1[str1.length - 1 - i].toLowerCase()) {
+      return false;
+    }
+  }
   return true;
 }
 
