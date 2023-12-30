@@ -193,7 +193,7 @@ console.log("Original Object:", obj);
 console.log("Object keys: ", Object.keys(obj));
 console.log("Object Values: ", Object.values(obj));
 console.log("Object Entries: ", Object.entries(obj));
-console.log("Object hasOwnProperty(): ", Object.hasOwnProperty(obj));
+console.log("Object hasOwnProperty(): ", obj.hasOwnProperty("key2"), obj.hasOwnProperty("key5"));
 console.log("After Adding new property to object: ", Object.assign(obj, { key4: "value4" }));
 console.log("Directly accessing the object values: ", obj.key1, obj.key2);
 
@@ -307,6 +307,8 @@ console.log("Start Time: " + startTime);
 setTimeout(printHi, 1000);
 
 //3. Create a terminal clock(HH: MM: SS)
+console.log("TERMINAL CLOCK");
+console.log("===============");
 function showTime() {
   let currDate1 = new Date();
   let currTime1 = currDate1.getHours() + ":" + currDate1.getMinutes() + ":" + currDate1.getSeconds();
@@ -314,9 +316,7 @@ function showTime() {
 }
 
 function terminalClock() {
-  for (let i = 0; i < 20; i++) {
-    setTimeout(showTime, 1000);
-  }
+  setInterval(showTime, 1000);
 }
 
 terminalClock()
