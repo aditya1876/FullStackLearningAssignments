@@ -111,6 +111,27 @@ function displayResult2(data) {
 }
 findSum2(1, 2, displayResult1);
 findSum2(1, 2, displayResult2);
+
+console.log("CALLBACK Example 2")
+function squares(n) {
+  return n * n;
+}
+function cube(n) {
+  return n * n * n;
+}
+function sumOfSomething(a, b, fnToCall) {
+  let v1 = fnToCall(a);
+  let v2 = fnToCall(b);
+  return v1 + v2;
+}
+
+console.log("Summing squares: " + sumOfSomething(1, 2, squares));
+console.log("Summing cubes: " + sumOfSomething(2, 3, cube));
+console.log("-------------------");
+
+console.log("Anonymous functions");
+let result = sumOfSomething(1, 2, function (n) { return n * n * n * n })
+console.log("Summing 4th power using anonymous function: " + result);
 console.log("-------------------");
 
 // Synchronous vs Asynchronous functions
