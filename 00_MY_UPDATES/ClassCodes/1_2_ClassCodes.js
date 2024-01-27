@@ -134,8 +134,6 @@ let result = sumOfSomething(1, 2, function (n) { return n * n * n * n })
 console.log("Summing 4th power using anonymous function: " + result);
 console.log("-------------------");
 
-// Synchronous vs Asynchronous functions
-
 //CODE SAMPLES
 //================
 console.log("CODE SAMPLES")
@@ -268,6 +266,27 @@ console.log("Time in milliseconds since 1970:", currentDate.getTime());
 
 const newDate = new Date(2023, 8, 15); // Creating a new date
 console.log("New Date:", newDate);
+
+//ANONYMOUS FUNCTIONS
+console.log("--------------------------------------------------");
+console.log("ANONYMOUS/ LAMBDA FUNCTIONS");
+
+setTimeout(function () { console.log("anonymous fn") }, 1000);
+
+
+//SYNCHRONOUS FUNCTION
+console.log("--------------------------------------------------");
+console.log("SYCHRONOUS ANS ASYNCHRONOUS FUNCTONS");
+//Any normally crated function is synchronous type.
+function mySyncfn() {
+  console.log(1);
+  console.log(2);
+}
+//Asynchronous functions can be user created or built-in functions
+setTimeout(mySyncfn, 5000);
+console.log("Hello!")
+
+console.log("EXPLANATION: In the above section, the setTime out function is called first, however, Hello is displayed first in the output. This is because of the asynchoronous nature of setTimeout(). Once it is called, it looks for the wait time and then passes the control to the next line. It keeps track of the wait time, waits for it and then runs the function that it is supposed to run. See full explaination of control flow in 01_2_JAVASCRIPT_BASICS.md file.");
 
 // CLASS PROBLEMS
 // Write a program to print the biggest number in an arrya
