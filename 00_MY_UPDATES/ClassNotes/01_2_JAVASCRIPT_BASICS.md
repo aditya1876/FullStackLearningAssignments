@@ -94,7 +94,7 @@ after timeout 1
 ```
 * There are 4 components:
   * Call Stack - tracks the individual calls
-  * Web APIs
+  * Web APIs - Not part of Javascript, runs on browser and js uses it to do some activities not part of js itself.(eg - waiting action of the setTimeout())
   * Callback Queue - Stores the functions waiting for main tread to be free
   * Event loop - checks if there are anything waiting in callback queue
 
@@ -113,5 +113,17 @@ after timeout 1
   12. set timeout 1 is moved to call stack and finishes.
 
 ## Promises
+* Promise is just a class that makes callbacks and async codebase more readable.
+* Better / more readable way to write user difined asynchronous functions.
+* Most user defined async functions are just wrappers on existing in-built js functions (async or sync).
+* Promise needs to have first arg as function and that function needs to have first arg as resolve
+
+> [Code](../ClassCodes/01_2_PromiseAndAwait.js)
 
 ## Async Await
+* Used to make code more readable. (uses promises, callbacks under the hood)
+* Usually used on the caller side and not where the callback function is defined
+* Any calling function that wants to use await has to be async.
+
+
+> [Code](../ClassCodes/01_2_PromiseAndAwait.js)
