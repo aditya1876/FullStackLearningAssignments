@@ -116,7 +116,61 @@ after timeout 1
 * Promise is just a class that makes callbacks and async codebase more readable.
 * Better / more readable way to write user difined asynchronous functions.
 * Most user defined async functions are just wrappers on existing in-built js functions (async or sync).
-* Promise needs to have first arg as function and that function needs to have first arg as resolve
+* Promise needs to have first arg as function and that function needs to have first arg as resolve.
+* Promises are commonly used for Async oprations like fetching data from server, reading a file, executing a timer
+* 3 states of promise:
+  * Pending - State of promise before resolved
+  * Resolved - State of promise once required Operation completed successfully.
+  * Rejected - State of promise when there is an error in the required opration.
+* Chaining:  Promises allow chaining using the .then method so that different oprations can be performed in sequence.
+* .catch() allows to handle errors in promises.
+* .all() method allows for parallel execution.
+
+```javascript
+// CHAINING
+asyncOperation1()
+  .then((result1) => asyncOperation2(result1))
+  .then((result2) => asyncOperation3(result2))
+  .then((result3) => {
+    // ...
+  });
+
+//ERROR HANDLING
+asyncOperation1()
+  .then((result1) => asyncOperation2(result1))
+  .then((result2) => asyncOperation3(result2))
+  .catch((error) => {
+    console.error('An error occurred:', error);
+  });
+
+// .all() method
+const promise1 = asyncOperation1();
+const promise2 = asyncOperation2();
+
+Promise.all([promise1, promise2])
+  .then((results) => {
+    const result1 = results[0];
+    const result2 = results[1];
+    // ...
+  })
+  .catch((error) => {
+    console.error('An error occurred:', error);
+  });
+
+//example 2
+const promise1 = Promise.resolve('One');
+const promise2 = Promise.resolve('Two');
+
+Promise.all([promise1, promise2])
+  .then((values) => {
+    console.log(values); // Output: ['One', 'Two']
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+```
+
 
 > [Code](../ClassCodes/01_2_PromiseAndAwait.js)
 
