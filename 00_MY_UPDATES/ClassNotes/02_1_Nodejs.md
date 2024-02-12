@@ -42,6 +42,18 @@
   * Establishes a connection with the IP(handshake)
   * Server gets teh request, Processes it and returns the output.
 
+### GET
+* To request data
+* data is passed in URL (cant send a lot of data is URL length is limited)
+* data is visible (can also be cached, bookmarked)
+* Multiple identical requests will have same effect (NOT idempotent)
+
+### POST
+* To submit data
+* Data sent in request body 
+* can send large amount of data
+* data not visible(better security)
+* Multiple identical requests can have different effects (idempotent)
 
 ## Express
 * A library that lets us create servers (nextJS is another one)
@@ -118,6 +130,16 @@ app.get('/greet/:name', (req, res) => {
   res.send(`Hello, ${name}!`);
 });
 
+//PUT route
+app.put('/put/:id', (req, res) => {
+  res.send('Hello from PUT route!');
+});
+
+//DELETE route 
+app.delete('/delete/:id', (req, res) => {
+  res.send('Hello from DELETE route!');
+});
+
 // Start the server on port 3000
 const PORT = 3000;
 app.listen(PORT, () => {
@@ -144,5 +166,159 @@ npm install --save-dev nodemon
 
 #start the server with nodemon
 nodemon server.js
+
+```
+
+### Response Object
+* Object used in Express to send response back to client.
+
+```
+//Sending Plain Text
+app.get('/', (req, res) => {
+  res.send('Hello, this is a plain text response!');
+});
+
+//Sending JSON
+//IT automatically also sets 'Content-Type' header to 'application/json'
+
+app.get('/api/data', (req, res) => {
+  const responseData = {
+    message: 'This is a JSON response',
+    data: {
+      key1: 'value1',
+      key2: 'value2',
+    },
+  };
+
+  res.json(responseData);
+});
+
+//Sending HTML
+app.get('/html', (req, res) => {
+  const htmlContent = '<h1>This is an HTML response</h1>';
+  res.send(htmlContent);
+});
+
+//Redirection
+app.get('/redirect', (req, res) => {
+  res.redirect('/new-location');
+});
+
+//Sending Status code
+app.get('/not-found', (req, res) => {
+  res.status(404).send('Page not found');
+});
+
+//Sending file
+const path = require('path');
+app.get('/file', (req, res) => {
+  const filePath = path.join(__dirname, 'files', 'example.txt');
+  res.sendFile(filePath);
+});
+
+//Sending headers
+app.get('/custom-header', (req, res) => {
+  res.set('X-Custom-Header', 'Custom Header Value');
+  res.send('Response with a custom header');
+});
+```
+
+### Managing env variables
+
+* Install dotenv
+```bash
+npm install dotenv
+```
+
+* Create `.env` file in repo
+* Add env varibles to it (like below)
+```text
+PORT=3000
+```
+* Add the following line to js code
+
+```javascript
+require('dotenv').config();
+//OTHER CODE
+
+//get port from env variable
+const port = process.env.PORT;
+
+//OTHER CODE
+
+//use the env variable
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+```
+
+### Parsing body
+
+```javascript
+//MIDDLEWARE - Built-in to js
+//Also see 'body-parser' used above
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Middleware to parse JSON data
+app.use(express.json());
+
+// Middleware to parse form data
+app.use(express.urlencoded({ extended: true }));
+
+// POST route to handle form data
+app.post('/form', (req, res) => {
+  const formData = req.body;
+  res.json({ receivedData: formData });
+});
+
+// POST route to handle JSON data
+app.post('/json', (req, res) => {
+  const jsonData = req.body;
+  res.json({ receivedData: jsonData });
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+```
+
+### Parsing Headers
+
+```javascript
+app.get('/get-info', (req, res) => {
+  // Access headers from req.headers
+  const userAgent = req.headers['user-agent'];
+  const acceptLanguage = req.headers['accept-language'];
+
+  res.json({
+    userAgent,
+    acceptLanguage,
+  });
+});
+```
+
+### Parsing Query Parameters
+* Query parameters are usually included in the URL after the "?" character and separated by "&".
+
+```javascript
+//url for below get request - 
+// https://mysite/api/user?id=123&name=abc+def
+app.get('/api/user', (req, res) => {
+  // Access query parameters from req.query
+  const userId = req.query.id; //123
+  const name = req.query.name; //abc+def
+
+  // Process the parameters as needed
+  const user = {
+    id: userId,
+    name: name,
+  };
+
+  // Send a JSON response with the parsed parameters
+  res.json({ user });
+});
 
 ```
