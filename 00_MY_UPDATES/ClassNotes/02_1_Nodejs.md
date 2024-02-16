@@ -19,6 +19,25 @@
 * Create HTTP Server (most imp)
 * other things
 
+## Node Installation
+* Google it.
+* nvm - node version manager
+* npm - node package manager
+```bash
+node -v #prints the node version installed
+
+#Node shell
+node #starts the node shell
+ctrl+C #to exit the shell
+
+#running js files
+node test.js #runs the js file
+
+#installing external packages from node registry (https://npmjs.com/packages/<packageName>)
+npm install express
+
+```
+
 ## HTTP
 * Hyper text transfer Protocol
 * protocol defined for machines to communicate
@@ -82,7 +101,6 @@ touch server.js
 node server.js
 
 #CTRL+C to kill the server
-
 ```
 
 ```javascript
