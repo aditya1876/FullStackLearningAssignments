@@ -1,5 +1,4 @@
 # NODEJS
-> [Nodejs](./../ClassCodes/02_1_Nodejs.js)
 
 * ECMAScript - Specification for writing javascript.
 * Javascript - The actual scrpring language. It implements ECMA script and also additional things to work completely.
