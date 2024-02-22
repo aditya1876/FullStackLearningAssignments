@@ -15,7 +15,69 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { promiseHooks } = require('v8');
 const app = express();
+
+//application logic
+function getFiles(dir) {
+  //get list of entries in the directory.
+  const fileList = fs.readdirSync(dir)
+  let files = []
+
+  //check if the item is a directory, if yes, run this function on the folder again
+  fileList.forEach((element) => {
+    const filePath = `${dir}/${element}`;
+    if (fs.statSync(filePath).isDirectory()) {
+      files.push(getFiles(filePath));
+    }
+    else {
+      files.push(filePath);
+    }
+  })
+
+  return files;
+}
+
+function getFileContent(filename) {
+  const filePath = "./files/" + filename;
+  console.log(filePath);
+  return new Promise(function (resolve) {
+    let fileContent = fs.readFile(filePath, function (err, data) {
+      if (err) {
+        return "Unable to read file due to error: " + err;
+      }
+      else {
+        return data;
+      }
+    })
+    resolve(fileContent);
+  });
+}
+
+function returnData(data) {
+  return data;
+}
+
+//routes
+app.get("/", function (req, res) {
+  res.send("Welcome to file server!");
+});
+
+app.get("/files", function (req, res) {
+  res.status(200).send(getFiles("./files"));
+})
+
+app.get("/files/:filename", function (req, res) {
+  const filename = req.params.filename;
+  let fileData = getFileContent(filename).then(returnData);
+  res.status(200).send(fileData);
+})
+
+//port
+PORT = 3001
+app.listen(PORT, () => {
+  console.log(`Server is running at https://localhost:${PORT}`);
+})
 
 
 module.exports = app;
