@@ -13,7 +13,7 @@ function middlewareValidateInputs(obj) {
     password: zod.string().min(8)
   })
   //There are many other zod schema to use and can be googled as required.
-  const result = myNumberArraySchema.safeParse(obj);
+  const result = myEmailPassSchema.safeParse(obj);
   console.log(result);
   return result;
 }
