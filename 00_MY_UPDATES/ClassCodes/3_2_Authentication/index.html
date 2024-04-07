@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch API</title>
+</head>
+
+<body>
+  <script>
+    async function getAnimalData() {
+      try {
+        const data = await fetch("https://fakerapi.it/api/v1/persons");
+        const finalData = await data.json();
+        console.log(finalData); //logs on console only
+        document.getElementById("container").innerHTML = JSON.stringify(finalData); //displays in div element on UI
+      } catch (error) {
+        //code here executes only when error occurs
+        console.error(error);
+      } finally {
+        //code here executes regarless of whether error occurs or no
+        console.log("in finally block");
+      }
+    }
+
+    // getAnimalData(); //calling this directly will fetch the data without button calling. it will be displayed everytime user refreshes page.
+
+
+
+  </script>
+  <div id="container"></div>
+  <button onclick="getAnimalData()">Get Animals</button>
+</body>
+
+</html>
