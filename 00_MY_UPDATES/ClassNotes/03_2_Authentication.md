@@ -20,4 +20,24 @@
 * COnverts a JSON and converts into a long string.
 * Original string can be deduced from converted string by anyonw.
 * But only the person with the password can verify if the JWRT is correct or not
- * Example: Signature on cheque. Anyone can see it, but only bank can verify it.
+ * Example: Signature on cheque. Anyone can see it, but only bank can verify it
+
+
+# DATABASES
+* Types:
+  * Graph DBs
+  * Vector DBs
+  * SQL DB
+  * NOSQL DB (mongo db)
+
+## MONGODB
+* Create Database
+* Each Database can have tables(collections)
+* Each collection can dump Json data
+* It is schemaless
+* Scales well
+
+
+## CONNECTING TO MONGO DB DATABASE FROM APP
+* using library - `Mongoose`
+* 

@@ -1,0 +1,63 @@
+const express = require("express");
+const app = express();
+app.use(express.json()); //middleware to parse Json in incoming request
+let requestCount = 0;
+let loginFlag = false;
+//============Middlewares===========
+function countNoOfRequests(req, res, next) {
+  requestCount++;
+  console.log(`You are visitor number: ${requestCount}.`);
+
+  next(); //do call this 
+}
+
+function login(req, res, next) {
+  console.log("login successful");
+  loginFlag = true;
+  next();
+}
+
+function middleware3(req, res, next) {
+  console.log("In middleware function 3");
+  next();
+}
+
+function middleware4(req, res, next) {
+  console.log("In middleware function 4");
+  next();
+}
+
+function global_catch(err, req, res, next) {
+  res.status(500).json({ msg: "Something went wrong" });
+}
+//==================================
+
+//Middle ware functions are passed to routes where required
+//Routes
+app.use(middleware3);
+app.get("/", countNoOfRequests, login, function (req, res) {
+  res.status(200).json({
+    msg: "Main page displayed",
+    reqCount: requestCount,
+    login: loginFlag
+  });
+});
+app.use(middleware4);
+app.get("/test", login, function (req, res) {
+  res.status(200).json({
+    msg: "In test route"
+  });
+})
+
+app.get("/error", function (req, res) {
+  throw new Error("Error for global catch");
+});
+
+//global catches
+app.use(global_catch);
+
+//Port
+const PORT = 3001;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+})
